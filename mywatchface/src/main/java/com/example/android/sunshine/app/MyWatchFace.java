@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.mywatchface;
+package com.example.android.sunshine.app;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -39,7 +39,6 @@ import android.support.wearable.watchface.WatchFaceStyle;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.WindowInsets;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -172,23 +171,23 @@ public class MyWatchFace extends CanvasWatchFaceService {
 
             // Initialize Paints
             mBackgroundPaint = new Paint();
-            mBackgroundPaint.setColor(resources.getColor(R.color.primary));
+            mBackgroundPaint.setColor(resources.getColor(com.example.mywatchface.R.color.primary));
             mTextTimePaint = new Paint();
-            mTextTimePaint = createTextTimePaint(resources.getColor(R.color.digital_text));
+            mTextTimePaint = createTextTimePaint(resources.getColor(com.example.mywatchface.R.color.digital_text));
             mTextDatePaint = new Paint();
             mTextDatePaint = createTextDatePaint();
             mTextTempLowPaint = new Paint();
-            mTextTempLowPaint = createTextTempPaint(resources.getColor(R.color.primary_light));
+            mTextTempLowPaint = createTextTempPaint(resources.getColor(com.example.mywatchface.R.color.primary_light));
             mTextTempHighPaint = new Paint();
-            mTextTempHighPaint = createTextTempPaint(resources.getColor(R.color.digital_text));
+            mTextTempHighPaint = createTextTempPaint(resources.getColor(com.example.mywatchface.R.color.digital_text));
 
             // Initialize Offsets
             mXOffsetTime = mTextTimePaint.measureText("12:00") / 2;
             mXOffsetDate = mTextDatePaint.measureText("WED, JUN 13, 2016") / 2;
-            mYOffsetTime = resources.getDimension(R.dimen.y_offset_time);
-            mYOffsetDate = resources.getDimension(R.dimen.y_offset_date);
-            mYOffsetDivider = resources.getDimension(R.dimen.y_offset_divider);
-            mYOffsetWeather = resources.getDimension(R.dimen.y_offset_weather);
+            mYOffsetTime = resources.getDimension(com.example.mywatchface.R.dimen.y_offset_time);
+            mYOffsetDate = resources.getDimension(com.example.mywatchface.R.dimen.y_offset_date);
+            mYOffsetDivider = resources.getDimension(com.example.mywatchface.R.dimen.y_offset_divider);
+            mYOffsetWeather = resources.getDimension(com.example.mywatchface.R.dimen.y_offset_weather);
 
             // Calendar for current date/time
             mCalendar = Calendar.getInstance();
@@ -206,14 +205,14 @@ public class MyWatchFace extends CanvasWatchFaceService {
             paint.setColor(textColor);
             paint.setTypeface(NORMAL_TYPEFACE);
             paint.setAntiAlias(true);
-            paint.setTextSize(getResources().getDimension(R.dimen.time_text_size));
+            paint.setTextSize(getResources().getDimension(com.example.mywatchface.R.dimen.time_text_size));
             return paint;
         }
         private Paint createTextDatePaint() {
             Paint paint = new Paint();
             paint.setTypeface(NORMAL_TYPEFACE);
             paint.setAntiAlias(true);
-            paint.setTextSize(getResources().getDimension(R.dimen.date_text_size));
+            paint.setTextSize(getResources().getDimension(com.example.mywatchface.R.dimen.date_text_size));
             return paint;
         }
         private Paint createTextTempPaint(int textColor) {
@@ -221,7 +220,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
             paint.setColor(textColor);
             paint.setTypeface(NORMAL_TYPEFACE);
             paint.setAntiAlias(true);
-            paint.setTextSize(getResources().getDimension(R.dimen.temp_text_size));
+            paint.setTextSize(getResources().getDimension(com.example.mywatchface.R.dimen.temp_text_size));
             return paint;
         }
 
@@ -324,9 +323,9 @@ public class MyWatchFace extends CanvasWatchFaceService {
             int year = mCalendar.get(Calendar.YEAR);
             String dateText = String.format("%s, %s %d, %d", dayName.toUpperCase(), monthName.toUpperCase(), dayOfMonth, year);
             if (isInAmbientMode()) {
-                mTextDatePaint.setColor(getResources().getColor(R.color.digital_text));
+                mTextDatePaint.setColor(getResources().getColor(com.example.mywatchface.R.color.digital_text));
             } else {
-                mTextDatePaint.setColor(getResources().getColor(R.color.primary_light));
+                mTextDatePaint.setColor(getResources().getColor(com.example.mywatchface.R.color.primary_light));
             }
             canvas.drawText(dateText, bounds.centerX() - mXOffsetDate, mYOffsetDate, mTextDatePaint);
 
@@ -338,13 +337,13 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 // Draw high and low temperature
                 float highTextSize = mTextTempHighPaint.measureText(mHighTemp);
                 if (mAmbient) {
-                    mTextTempLowPaint.setColor(getResources().getColor(R.color.digital_text));
+                    mTextTempLowPaint.setColor(getResources().getColor(com.example.mywatchface.R.color.digital_text));
                     float lowTextSize = mTextTempLowPaint.measureText(mLowTemp);
                     float xOffset = bounds.centerX() - ((highTextSize + lowTextSize + 20) / 2);
                     canvas.drawText(mHighTemp, xOffset, mYOffsetWeather, mTextTempHighPaint);
                     canvas.drawText(mLowTemp, xOffset + highTextSize + 20, mYOffsetWeather, mTextTempLowPaint);
                 } else {
-                    mTextTempLowPaint.setColor(getResources().getColor(R.color.primary_light));
+                    mTextTempLowPaint.setColor(getResources().getColor(com.example.mywatchface.R.color.primary_light));
                     float xOffset = bounds.centerX() - (highTextSize / 2);
                     canvas.drawText(mHighTemp, xOffset, mYOffsetWeather, mTextTempHighPaint);
                     canvas.drawText(mLowTemp, bounds.centerX() + (highTextSize / 2) + 20, mYOffsetWeather, mTextTempLowPaint);
